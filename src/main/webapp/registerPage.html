@@ -1,57 +1,64 @@
-import java.io.IOException;
-import java.io.PrintWriter;
+<!DOCTYPE html>
+<html>
 
-// For Tomcat 10+ use: jakarta.servlet.*
-// For Tomcat 9 or below use: javax.servlet.*
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+<head>
+	<meta charset="UTF-8">
+	<title>Register New User - Meowy Groom</title>
+</head>
 
-// This maps the servlet to the form's action="register"
-@WebServlet("/register")
-public class registerPage extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+<body>
+	<div class="card">
+		<form action="register" method="POST">
 
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
+			<div class="field">
+				<label>Full Name</label>
+				<div class="input-wrap">
+					<input type="text" name="fullName" placeholder="Enter your full name" required>
+				</div>
+			</div>
 
-		// 1. Set the content type for response output
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
+			<div class="field">
+				<label>Username</label>
+				<div class="input-wrap">
+					<input type="text" name="username" placeholder="Choose a username" required>
+				</div>
+			</div>
 
-		// 2. Fetch data from HTML inputs using the 'name' attributes
-		String fullName = request.getParameter("fullName");
-		String username = request.getParameter("username");
-		String phone = request.getParameter("phone");
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String confirmPassword = request.getParameter("confirmPassword");
+			<div class="field">
+				<label>Phone Number</label>
+				<div class="input-wrap">
+					<input type="tel" name="phone" placeholder="Enter your phone number" required>
+				</div>
+			</div>
 
-		// 3. Simple Backend Validation
-		if (password == null || !password.equals(confirmPassword)) {
-			out.println("<script type='text/javascript'>");
-			out.println("alert('Passwords do not match! Please try again.');");
-			out.println("window.history.back();"); // Sends user back to registration page
-			out.println("</script>");
-			return;
-		}
+			<div class="field">
+				<label>Email</label>
+				<div class="input-wrap">
+					<input type="email" name="email" placeholder="Enter your email" required>
+				</div>
+			</div>
 
-		// 4. Core Logic (Print to console as a placeholder for Database Saving)
-		System.out.println("--- New Registration Received ---");
-		System.out.println("Name: " + fullName);
-		System.out.println("Username: " + username);
-		System.out.println("Email: " + email);
-		System.out.println("Phone: " + phone);
+			<div class="field">
+				<label>Password</label>
+				<div class="input-wrap">
+					<input type="password" name="password" placeholder="Create a password" required>
+				</div>
+			</div>
 
-		// TODO: Insert your JDBC code here to save to MySQL/PostgreSQL
+			<div class="field">
+				<label>Confirm Password</label>
+				<div class="input-wrap">
+					<input type="password" name="confirmPassword" placeholder="Confirm your password" required>
+				</div>
+			</div>
 
-		// 5. Success Action: Send an alert and redirect to the login page
-		out.println("<script type='text/javascript'>");
-		out.println("alert('Registration successful for " + username + "!');");
-		out.println("window.location.href='main/loginPage.html';"); 
-		out.println("</script>");
-	}
-}
+			<div class="btn-row">
+				<button type="submit" class="btn btn-register">Register</button>
+				<button type="button" class="btn btn-cancel"
+					onclick="window.location.href='loginPage.html'">Cancel</button>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>
