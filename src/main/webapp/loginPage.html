@@ -1,57 +1,45 @@
-import java.io.IOException;
-import java.io.PrintWriter;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+<!DOCTYPE html>
+<html>
 
-@WebServlet("/LoginServlet")
-public class loginPage extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+<head>
+	<meta charset="UTF-8">
+	<title>Login Page - Meowy Groom</title>
+</head>
 
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
+<body>
+	<h1>Welcome Back</h1>
+	<p>Login to Meowy Groom</p>
 
-		// 1. Retrieve the form data using the "name" attributes from your HTML
-		String role = request.getParameter("role");
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+	<form action="login" method="POST">
+		<div class="feild">
+			<label>Login As</label>
+			<div class="inpot-warp">
+				<select id="role" name="role" class="form-input">
+					<option value="customer">Customer</option>
+					<option value="staff">Staff</option>
+					<option value="owner">Owner</option>
+				</select>
+			</div>
+		</div>
+		<div class="field">
+			<label>Username</label>
+			<div class="input-wrap">
+				<input type="text" name="username" placeholder="Choose a username" required>
+			</div>
+		</div>
+		<div class="field">
+			<label>Password</label>
+			<div class="input-wrap">
+				<input type="password" name="password" placeholder="Create a password" required>
+			</div>
+		</div>
+		<div class="btn-row">
+			<button type="submit" class="btn btn-register">Login</button>
+		</div>
+		<footer class="register-footer">
+			<span>Don't have an account? </span> <a href="registerPage.html" class="register-link">Register here</a>
+		</footer>
+	</form>
+</body>
 
-		// Clean up inputs to avoid accidental whitespace issues
-		if (username != null) username = username.trim();
-		if (password != null) password = password.trim();
-
-		boolean isAuthenticated = false;
-
-		// 2. Validate credentials based on your Meowy Groom system roles
-		if ("customer".equals(role) && "aliahmad".equals(username) && "ali123".equals(password)) {
-			isAuthenticated = true;
-		} else if ("staff".equals(role) && "mikejohnson".equals(username) && "mike123".equals(password)) {
-			isAuthenticated = true;
-		} else if ("owner".equals(role) && "mohdhanafi".equals(username) && "hanafi123".equals(password)) {
-			isAuthenticated = true;
-		}
-
-		// 3. Decide where to send the user based on authentication status
-		if (isAuthenticated) {
-			// Create a server-side session to keep the user logged in
-			HttpSession session = request.getSession();
-			session.setAttribute("userRole", role);
-			session.setAttribute("username", username);
-
-			// Redirect them to your main application dashboard/sidebar
-			response.sendRedirect("sidebar.html");
-		} else {
-			// Authentication failed: Send an alert and kick them back to the login page
-			response.setContentType("text/html");
-			PrintWriter out = response.getWriter();
-			out.println("<script type='text/javascript'>");
-			out.println("alert('Invalid username, password, or role selection. Please try again.');");
-			out.println("window.history.back();"); // Sends user back to the login form
-			out.println("</script>");
-		}
-	}
-}
+</html>
