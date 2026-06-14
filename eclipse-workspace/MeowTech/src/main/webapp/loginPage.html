@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Login Page - Meowy Groom</title>
+</head>
+
+<body>
+	<h1>Welcome Back</h1>
+	<p>Login to Meowy Groom</p>
+
+	<form action="login" method="POST">
+		<div class="feild">
+			<label>Login As</label>
+			<div class="inpot-warp">
+				<select id="role" name="role" class="form-input">
+					<option value="customer">Customer</option>
+					<option value="staff">Staff</option>
+					<option value="owner">Owner</option>
+				</select>
+			</div>
+		</div>
+		<div class="field">
+			<label>Username</label>
+			<div class="input-wrap">
+				<input type="text" name="username" placeholder="Choose a username" required>
+			</div>
+		</div>
+		<div class="field">
+			<label>Password</label>
+			<div class="input-wrap">
+				<input type="password" name="password" placeholder="Create a password" required>
+			</div>
+		</div>
+		<div class="btn-row">
+			<button type="submit" class="btn btn-register">Login</button>
+		</div>
+		<footer class="register-footer">
+			<span>Don't have an account? </span> <a href="registerPage.html" class="register-link">Register here</a>
+		</footer>
+	</form>
+</body>
+
+</html>
